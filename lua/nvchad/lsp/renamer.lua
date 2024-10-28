@@ -1,35 +1,31 @@
 return function()
-  local currName = vim.fn.expand "<cword>" .. " "
+  local api = vim.api
+  local var = vim.fn.expand "<cword>"
+  local buf = api.nvim_create_buf(false, true)
+  local opts = { height = 1, style = "minimal", border = "single", row = 1, col = 1 }
 
-  local win = require("plenary.popup").create(currName, {
-    title = "Renamer",
-    style = "minimal",
-    borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-    relative = "cursor",
-    borderhighlight = "RenamerBorder",
-    titlehighlight = "RenamerTitle",
-    focusable = true,
-    width = 25,
-    height = 1,
-    line = "cursor+2",
-    col = "cursor-1",
-  })
+  opts.relative, opts.width = "cursor", #var + 15
+  opts.title, opts.title_pos = { { " Renamer ", "@comment.danger" } }, "center"
 
-  vim.cmd "normal A"
-  vim.cmd "startinsert"
+  local win = api.nvim_open_win(buf, true, opts)
+  vim.wo[win].winhl = "Normal:Normal,FloatBorder:Removed"
+  api.nvim_set_current_win(win)
 
-  vim.keymap.set({ "i", "n" }, "<Esc>", "<cmd>q<CR>", { buffer = 0 })
+  api.nvim_buf_set_lines(buf, 0, -1, true, { " " .. var })
+  vim.api.nvim_input "A"
 
-  vim.keymap.set({ "i", "n" }, "<CR>", function()
-    local newName = vim.trim(vim.fn.getline ".")
-    vim.api.nvim_win_close(win, true)
+  vim.keymap.set({ "i", "n" }, "<Esc>", "<cmd>q<CR>", { buffer = buf })
 
-    if #newName > 0 and newName ~= currName then
+  vim.keymap.set("i", "<CR>", function()
+    local newName = vim.trim(api.nvim_get_current_line())
+    api.nvim_win_close(win, true)
+
+    if #newName > 0 and newName ~= var then
       local params = vim.lsp.util.make_position_params()
       params.newName = newName
-
       vim.lsp.buf_request(0, "textDocument/rename", params)
     end
+
     vim.cmd.stopinsert()
-  end, { buffer = 0 })
+  end, { buffer = buf })
 end
