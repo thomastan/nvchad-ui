@@ -2,9 +2,6 @@ local M = {}
 local api = vim.api
 local fn = vim.fn
 local strw = api.nvim_strwidth
-
-dofile(vim.g.base46_cache .. "nvdash")
-
 local opts = require("nvconfig").nvdash
 
 local map = function(keys, action, buf)

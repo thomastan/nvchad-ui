@@ -66,7 +66,7 @@ local options = {
       { txt = "󱥚  Themes", keys = "th", cmd = ":lua require('nvchad.themes').open()" },
       { txt = "  Mappings", keys = "ch", cmd = "NvCheatsheet" },
 
-      { txt = "─", hl = "NvDashLazy", no_gap = true, rep = true },
+      { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
 
       {
         txt = function()
@@ -74,11 +74,11 @@ local options = {
           local ms = math.floor(stats.startuptime) .. " ms"
           return "  Loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms
         end,
-        hl = "NvDashLazy",
+        hl = "NvDashFooter",
         no_gap = true,
       },
 
-      { txt = "─", hl = "NvDashLazy", no_gap = true, rep = true },
+      { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
     },
   },
 
