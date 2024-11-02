@@ -551,7 +551,7 @@ Setting themes outside of Neovim: ~
       -- Pmenu = { bg = "#ffffff" }, this works too
         
       -- lighten or darken base46 theme variable
-      -- this will use the black color from nvui.theme & lighten it by 5x
+      -- this will use the black color from base46.theme & lighten it by 2x
       -- negative number will darken it
       Normal = {
         bg = { "black", 2 }
