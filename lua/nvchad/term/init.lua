@@ -62,6 +62,7 @@ M.display = function(opts)
   opts.win = win
 
   vim.bo[opts.buf].buflisted = false
+  vim.bo[opts.buf].ft = "NvTerm_"..opts.pos
   vim.cmd "startinsert"
 
   -- resize non floating wins initially + or only when they're toggleable
