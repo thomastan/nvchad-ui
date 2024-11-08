@@ -102,7 +102,7 @@ local options = {
     excluded_groups = { "terminal (t)", "autopairs", "Nvim", "Opens" }, -- can add group name or with mode
   },
 
-  mason = { pkgs = {} },
+  mason = { pkgs = {}, skip = {} },
 
   colorify = {
     enabled = true,

@@ -1,6 +1,7 @@
 local M = {}
 local masonames = require "nvchad.mason.names"
 local pkgs = require("nvconfig").mason.pkgs
+local skipped = require("nvconfig").mason.skip
 
 M.get_pkgs = function()
   local tools = {}
@@ -30,7 +31,11 @@ M.get_pkgs = function()
 
   -- rm duplicates
   for _, v in pairs(tools) do
-    if not (vim.tbl_contains(pkgs, masonames[v])) then
+    if
+      not vim.tbl_contains(pkgs, masonames[v])
+      and not vim.tbl_contains(skipped, masonames[v])
+      and not vim.tbl_contains(skipped, v)
+    then
       table.insert(pkgs, masonames[v])
     end
   end

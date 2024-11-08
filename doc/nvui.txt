@@ -209,7 +209,7 @@ Only those you want to change and the it'll override the defaults.
      excluded_groups = { "terminal (t)", "autopairs", "Nvim", "Opens" }, -- can add group name or with mode
    },
 
-   mason = { pkgs = {} },
+   mason = { pkgs = {}, skip = {} },
 
    colorify = {
      enabled = true,
